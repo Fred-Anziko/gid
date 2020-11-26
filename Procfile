@@ -1,1 +1,1 @@
-web: gunicorn gidapplication:app --log-file -
+web: gunicorn gidapplication:app
