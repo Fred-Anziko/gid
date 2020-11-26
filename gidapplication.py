@@ -14,7 +14,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from gidhelpers import login_required, lookup, login_as_employer_required
 import gidmodal
 from gidmodal import gidconnection, gidcursor
-from waitress import *
+import waitress
 
 
 
@@ -438,6 +438,6 @@ gidconnection.commit()
 ###########WSGIsever##############BEGINS##########################
 if __name__ == "__main__":
     gidapp.debug=False
-    port=int(os.envirom.get('PORT', 33507))
+    port=int(os.environ.get('PORT', 33507))
     waitress.serve(gidapp,port=port)
 ###########WSGIsever##############ENDS############################/
