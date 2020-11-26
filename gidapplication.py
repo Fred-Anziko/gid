@@ -14,11 +14,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from gidhelpers import login_required, lookup, login_as_employer_required
 import gidmodal
 from gidmodal import gidconnection, gidcursor
+from waitress import *
 
 
-
-# Read port selected for our application
-PORT = int(os.getenv('', 8000))
 
 
 
@@ -439,8 +437,7 @@ gidconnection.commit()
 #########MODAL##########ENDS######################################
 ###########WSGIsever##############BEGINS##########################
 if __name__ == "__main__":
-    with make_server('', PORT,gidapp) as httpd:
-        print(f"gidapplication server is switched on port {PORT}")
-        # WSGIsever Serve until process is killed
-        httpd.serve_forever()
+    gidapp.debug=False
+    port=int(os.envirom.get('PORT', 33507))
+    waitress.serve(gidapp,port=port)
 ###########WSGIsever##############ENDS############################/
