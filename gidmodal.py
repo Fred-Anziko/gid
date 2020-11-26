@@ -62,4 +62,4 @@ try:
                      Personnel_Date_Of_Registration TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)''')
 except:
     pass
-##creat Database tables in giddatabase.py ends##
+##creat Database tables in giddatabase ends##
