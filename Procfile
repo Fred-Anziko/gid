@@ -1,1 +1,1 @@
-web: python gidapplication.py
+web: gunicorn gidapplication.wsgi --log-file -
