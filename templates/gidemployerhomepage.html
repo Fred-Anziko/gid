@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+            <title>get it done</title> <!--for SEO-->
+            <meta http-equiv="content-type" content="text/html/> <!--choosing character type-->
+            <meta name="keywords" content="gid,get it done,works,jobs,tasks,freelancing,agents" /> <!--for SEO -->
+            <meta name="description" content="get it done by expertise and professionals"/> <!--for SEO-->
+            <meta name="robots" content="all,index" /> <!--allow or block indexing of site content by automated search engines-->
+			<meta name="mobile-web-app-capable" content="yes" /> <!--android chrome web app on home screen-->
+			<meta name="apple-mobile-web-app-capable" content="yes" /> <!--iOS web app on homescreen-->
+            <meta name="Revisits-After"content ="30 Days" /> <!--assists search engine how regular they should update-->
+            <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
+			<link rel="stylesheet" href="/static/stylesheets/gidstyles.css">
+			<!--<link rel="shortcut icon"> attach icon of the platform-->
+            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
+            <!--<script src='OSC.js'></script> <!--geolocation html5 code starts here -->
+            <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script><!--geolocation-->
+			<meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-light-blue w3-xlarge" style="max-width:1200px;margin:auto">
+    <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()"><strong>☰</strong></div>
+	<div class="w3-right w3-padding-16 w3-button"><em><a href="#">{{username1}}</a></em></div>
+    <div class="w3-center w3-padding-16">
+	<h1>gid</h1>
+	<form action="/gidsearchengine" method="post">
+	<input type="search" name="searchengine" placeholder="Search" class="search" required>
+	<input type="submit" value="☆" class="searchsubmit">
+</form>
+</div>
+</div>
+</div>
+	
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--header begins here-->
+<div class="w3-light-blue">
+  <h1><div class="w3-center w3-padding-16"><h1>get it done</h1></div></h1>
+  <h2><div class="w3-center w3-padding-16"><p>Post a task</p></div></h2>
+</div>
+<!--header ends here-->
+<!--navigation begins here-->
+<div class="navbar">
+  <a href="#"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Home</a>
+  <a href="#"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Profile</a>
+  <a href="/gidemployerlogout"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Logout</a>
+  <a href="#"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Dashboard</a>
+  <a href="gidchatboard"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Chatboard</a>
+  <a href="/gidposttask"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Add task</a>
+  <a href="#"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Task status</a> 
+  <a href="#"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Info</a>
+  <a href="mailto:fredanziko@gmail.com"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Contact us</a>
+</div>
+<br>
+<!--navigation ends here-->
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
+<body>
+
+<!-- Sidebar (hidden by default) -->
+<nav class="sidebar" style="display:none;z-index:2;width:25%;min-width:300px" id="mySidebar">
+  <h2><em><a href="#">{{username}}</a></em></h2>
+  <a href="javascript:void(0)" onclick="w3_close()"
+  class="closebtn ">x</a>
+  <a href="#"onclick="w3_close()">Home</a>
+  <a href="#"onclick="w3_close()">Dashboard</a>
+  <a href="gidchatboard"onclick="w3_close()">Chatboard</a>
+  <a href="/gidposttask"onclick="w3_close()">Add task</a>
+  <a href="#"onclick="w3_close()">Task status</a>
+  <a href="#" onclick="w3_close()">About us</a>
+  <a href="mailto:fredanziko@gmail.com">Contact us</a>
+  <a href="#"onclick="w3_close()">Manage account</a>
+  <a href="/gidemployerlogout"onclick="w3_close()">Logout</a></div>
+</nav>
+
+
+  
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding w3-gray" style="max-width:1200px;margin-top:100px">
+     <img src="static/images/gidemployerhomepagepic.png" width="100%" height="300px">
+  
+  {% block content %}
+  {% for task in taskStatus %}
+      <header>
+        <div>
+          <h1>{{ task[3] }}</h1>
+		  <h4>{{ task[2] }}</h4>
+		  <h6><strong>Task by Identity:</strong> {{ task[1] }}</h5>
+      </header>
+      <p><strong>Description:</strong>{{ task[4] }}</p>
+	  <p><strong>Total Budget:</strong> {{ task[8] }} {{ task[7] }}</p>
+	  <p><strong>Deadline:</strong> {{ task[10] }}</p>
+	  <p><strong>Required:</strong>{{ task[5] }}</p>
+	  <a href="#"><em><strong>Update</strong></em></a>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+  
+</div>
+<br>
+<br>
+  <!-- Footer -->
+<div class="footer w3-light-blue">
+  <div class="row">
+<div class="col-25-2">
+  <a href="mailto:fredanziko@gmail.com">Contact us</a>
+  <br>
+  <br>
+  <a href="/gidaboutus">About us</a>
+  <br>
+  <br>
+  <a href="/gidhowto">how to</a>
+  <br>
+  <br>
+  <a href="/gidtermsandconditions">Terms & Conditions</a> 
+</div>
+</div>
+
+ <h2>©whiterhino inc.</h2>
+  <h3><em> 
+ <script>
+ var today=new Date(Date.now());
+ document.write(today);
+ </script>
+ </em></h3>
+ </div>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+// position auto input
+var gidgps = document.getElementById("gidpositioning");
+
+window.onload= function getLocation(event) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    gidgps.value = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  gidgps.value = position.coords.latitude + 
+  "," + position.coords.longitude;
+}
+</script>
+
+</body>
+
+</html>

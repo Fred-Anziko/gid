@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+body {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+color:indigo;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+textarea, input[type=text], input[type=number], input[type=password],input[type=date] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border:2px solid white;
+  border-radius:20px;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+textarea, input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border:2px solid white;
+  border-radius:10px; 
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.signupbtn {
+  float: left;
+  width: 50%;
+  background-color: blue;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: green;
+  padding-top:20px;
+  border:2px solid white;
+  border-radius:20px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 2% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border:2px solid white;
+  border-radius:20px;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+</style>
+</head>
+<body>
+
+<div  class="modal">
+  <form class="modal-content animate" action="/gidposttask" method="post" onsubmit="gidDate()">
+    <div class="container">
+      <img src="static/images/gidposttaskpic.png" width="100%" height="250px">
+	  <hr>
+	  
+	  <label for="taskname"><b>Task name</b></label>
+      <input type="text" placeholder="Task name" name="taskname" required>
+	  
+	  <label for="taskcategory"><b>Task category</b></label>
+      <input type="text" placeholder="Task Category" name="taskcategory" required>
+	  
+	  <label for="taskdescription"><b>Task description</b></label>
+      <textarea placeholder="Brief decription of the task" name="taskdescription" required></textarea>
+	  
+	  <label for="requiredskills"><b>Requirements</b></label>
+      <textarea  placeholder="Required skills and tools to get the task done" name="requiredskills" required></textarea>
+	  
+	  <label for="payment"><b>Payment</b></label>
+      <input type="text" placeholder="select either fixed price or per hour" name="payment" required>
+	  
+	  <label for="estimatedbudget"><b>Budget</b></label>
+	  <input type="text" placeholder="Currency" name="currency" required>
+      <input type="number" placeholder="Estimated total budget,only numbers:" name="estimatedbudget" required>
+	 
+	  
+      <input type="hidden" id="giddate"  name="taskpostdate" autofocus onfocus="gidDate()" required>
+      
+	  
+      <input type="hidden" id="gidpositioning"  name="taskposition" onfocus="showPosition()" autofocus required>
+	  
+	  <label for="taskdeadline"><b>Task deadline</b></label>
+      <input type="date" placeholder="Deadline for getting the job done" name="taskdeadline" required>
+	  
+      <p>By posting task you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+        <button type="submit" class="signupbtn"><strong>Add task</strong></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+ // date auto input
+function gidDate(event){
+   var today=new Date(Date.now());
+   document.querySelector('#giddate').value=today;
+ }
+// position auto input
+var gidgps = document.getElementById("gidpositioning");
+
+window.onload= function getLocation(event) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    gidgps.value = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  gidgps.value = position.coords.latitude + 
+  "," + position.coords.longitude;
+}
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
