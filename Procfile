@@ -1,1 +1,1 @@
-web: gunicorn gidapplication:app
+web: python gidapplication.py
