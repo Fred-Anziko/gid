@@ -1,14 +1,14 @@
 import os
-import sqlite3
+import psycopg2
 
 ########MODAL/DATABASE########BEGINS
-#connection to the sqlite3 database and giddatabase.db file
-gidconnection=sqlite3.connect("giddatabase.db")
+#connection to the PostgreSQL database and giddatabase.db file
+gidconnection=psycopg2.connect(database="giddatabase", user="postgres", password="Afeku demetrio2020")
 
-##creat Database tables in giddatabase.py begins##
-#sqlite3 gidconnection cursor
+##creat Database tables in giddatabase begins##
 gidcursor=gidconnection.cursor()
 # Create employers table
+
 try:
     gidcursor.execute('''CREATE TABLE employers
                      (Employer_Id_No INTEGER PRIMARY KEY AUTOINCREMENT, 

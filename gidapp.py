@@ -1,8 +1,5 @@
 import os
-import sys
 import datetime
-import sqlite3
-import re
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 import functools
 from flask import Blueprint
@@ -11,8 +8,9 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 from gidhelpers import login_required, lookup, login_as_employer_required
 import gidmodal
-from gidmodal import gidconnection, gidcursor
+from gidmodal import gidconnection,gidcursor
 import waitress
+import psycopg2
 
 
 
@@ -120,7 +118,7 @@ def register():
                 )
             )
 
-            gidconnection.commit()
+            
             return redirect("/gidlogin")
     else:
         return render_template("register.html")
@@ -173,7 +171,7 @@ def employer_register():
                 )
             )
 
-            gidconnection.commit()
+            
             return redirect("/employergidlogin")
     else:
         return render_template("employerregistry.html")
@@ -338,7 +336,7 @@ def gidpostingtask():
                 taskDeadline
                 )
             )
-        gidconnection.commit()
+        
         return redirect("/employerhomepage")
     else:
         return render_template("gidposttask.html")
@@ -430,8 +428,6 @@ def chatboard():
 
 #########CONTROLLER APPLICATION######ENDS#########################
 
-#save any changes
-gidconnection.commit()
 #########MODAL##########ENDS######################################
 ###########WSGIsever##############BEGINS##########################
 if __name__ == "__main__":
