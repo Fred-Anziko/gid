@@ -89,7 +89,7 @@ def register():
         error=None
 
         if (
-            gidcursor.execute("SELECT Personnel_Id_No FROM personnels WHERE Personnel_User_Name = ?", (user_name,)).fetchone()
+            gidcursor.execute("SELECT Personnel_Id_No FROM personnels WHERE Personnel_User_Name = ANY(%s)", (user_name,)).fetchone()
             is not None
         ):
 
@@ -99,7 +99,7 @@ def register():
             # the name is not in system, store it in the database and go to
             # the login page
             gidcursor.execute(
-                "INSERT INTO personnels (Personnel_First_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_address,Personnel_Country,Personnel_City_Of_Residence,Personnel_Qualifications,Personnel_Experiences,Personnel_Skills,Personnel_Gps_Location,Personnel_Date_Of_Registration) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO personnels (Personnel_First_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_address,Personnel_Country,Personnel_City_Of_Residence,Personnel_Qualifications,Personnel_Experiences,Personnel_Skills,Personnel_Gps_Location,Personnel_Date_Of_Registration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (
 
                 firstname,
@@ -117,6 +117,7 @@ def register():
                 date_of_reg
                 )
             )
+            gidconnection.commit()
 
             
             return redirect("/gidlogin")
@@ -145,7 +146,7 @@ def employer_register():
         eError=None
 
         if (
-            gidcursor.execute("SELECT Employer_Id_No FROM employers WHERE Employer_User_Name = ?", (eUserName,)).fetchone()
+            gidcursor.execute("SELECT Employer_Id_No FROM employers WHERE Employer_User_Name = %s", (eUserName,)).fetchone()
             is not None
         ):
 
@@ -155,7 +156,7 @@ def employer_register():
             # the name is not in system, store it in the database and go to
             # the login page
             gidcursor.execute(
-                "INSERT INTO employers (Employer_First_Name,Employer_Last_Name,Employer_User_Name,Employer_Password,Employer_Tel_No,Employer_Email_Address,Employer_Country,Employer_City_Of_Residence,Employer_Gps_Location,Employer_Date_Of_Registration) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO employers (Employer_First_Name,Employer_Last_Name,Employer_User_Name,Employer_Password,Employer_Tel_No,Employer_Email_Address,Employer_Country,Employer_City_Of_Residence,Employer_Gps_Location,Employer_Date_Of_Registration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (
 
                 efirstName,
@@ -170,6 +171,7 @@ def employer_register():
                 eDate_of_Reg
                 )
             )
+            gidconnection.commit()
 
             
             return redirect("/employergidlogin")
@@ -202,7 +204,7 @@ def login():
         password = request.form["password"]
         error = None
         user = gidcursor.execute(
-            "SELECT * FROM personnels WHERE Personnel_User_Name = ?", (username,)
+            "SELECT * FROM personnels WHERE Personnel_User_Name = ANY(%s)", (username,)
         ).fetchone()
 
         if user is None:
@@ -227,7 +229,7 @@ def employer_login():
         epassWord = request.form["PassWord"]
         error = None
         userEmployer = gidcursor.execute(
-            "SELECT * FROM employers WHERE Employer_User_Name = ?", (euserName,)
+            "SELECT * FROM employers WHERE Employer_User_Name = %s", (euserName,)
         ).fetchone()
 
         if userEmployer is None:
@@ -261,12 +263,12 @@ def employerhomepage():
     """employerhomepage.html."""
     loggedinemployer=session["employer_user_id"]
     useremployer = gidcursor.execute(
-            "SELECT * FROM employers WHERE Employer_Id_No = ?", (loggedinemployer,)
+            "SELECT * FROM employers WHERE Employer_Id_No = %s", (loggedinemployer,)
         ).fetchone()
     username=useremployer[3]
     username1=username[0]
     taskStatus = gidcursor.execute(
-        "SELECT * FROM tasks WHERE Employer_Identity=?"
+        "SELECT * FROM tasks WHERE Employer_Identity=%s"
         " ORDER BY Task_Date_Of_Post DESC", (loggedinemployer,)
     ).fetchall()
     return render_template("gidemployerhomepage.html",username1=username1,username=username,taskStatus=taskStatus)
@@ -291,7 +293,7 @@ def personnelhomepage():
     """personnelhomepage.html"""
     loggedinuser=session["user_id"]
     user = gidcursor.execute(
-            "SELECT * FROM personnels WHERE Personnel_Id_No = ?", (loggedinuser,)
+            "SELECT * FROM personnels WHERE Personnel_Id_No = %s", (loggedinuser,)
         ).fetchone()
     userfirstname1=user[1]
     userlastname=user[2]
@@ -321,7 +323,7 @@ def gidpostingtask():
         taskDeadline=request.form["taskdeadline"]
         taskEmployerId=session["employer_user_id"]
         gidcursor.execute(
-                "INSERT INTO tasks (Employer_Identity,Task_Category,Task_Name,Task_Description,Task_Requirements,Task_Gps_Location,Task_Budget_Amount,Task_Budget_Currency,Task_Date_Of_Post,Task_Deadline) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO tasks (Employer_Identity,Task_Category,Task_Name,Task_Description,Task_Requirements,Task_Gps_Location,Task_Budget_Amount,Task_Budget_Currency,Task_Date_Of_Post,Task_Deadline) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (
 
                 taskEmployerId,
@@ -336,6 +338,7 @@ def gidpostingtask():
                 taskDeadline
                 )
             )
+        gidconnection.commit()
         
         return redirect("/employerhomepage")
     else:
