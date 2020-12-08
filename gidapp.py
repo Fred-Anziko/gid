@@ -23,6 +23,9 @@ import psycopg2
 
 
 ########VIEW MODAL #########is in gid-master/tenplates and static folders########
+# Read port selected by the cloud for our application
+
+PORT = int(os.getenv('PORT', 8000))
 
 
 
@@ -47,7 +50,6 @@ def after_request(response):
 gidapp.config["SESSION_FILE_DIR"] = mkdtemp()
 gidapp.config["SESSION_PERMANENT"] = False
 gidapp.config["SESSION_TYPE"] = "filesystem"
-#session(gidapp)
 
 
 #index route
@@ -435,6 +437,5 @@ def chatboard():
 ###########WSGIsever##############BEGINS##########################
 if __name__ == "__main__":
     gidapp.debug=False
-    port=int(os.environ.get('PORT', 33507))
-    waitress.serve(gidapp,port=port)
+    waitress.serve(gidapp,port=PORT)
 ###########WSGIsever##############ENDS############################/
