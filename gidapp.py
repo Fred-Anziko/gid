@@ -35,7 +35,7 @@ gidapp.secret_key = f'afekudemetrio'
 # Ensure templates are auto-reloaded
 gidapp.config["TEMPLATES_AUTO_RELOAD"] = True
 
-# Ensure responses aren't cached
+#Ensure responses aren't cached
 @gidapp.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -47,7 +47,7 @@ def after_request(response):
 gidapp.config["SESSION_FILE_DIR"] = mkdtemp()
 gidapp.config["SESSION_PERMANENT"] = False
 gidapp.config["SESSION_TYPE"] = "filesystem"
-#Session(gidapp)
+#session(gidapp)
 
 
 #index route
