@@ -91,15 +91,15 @@ def register():
         error=None
 
         if (
-            gidcursor.execute("SELECT Personnel_Id_No FROM personnels WHERE Personnel_User_Name = ANY(%s)", (user_name,)).fetchone()
+            gidcursor.execute("SELECT Personnel_Id_No FROM personnels WHERE Personnel_User_Name =(%s)", (user_name)).fetchone()
             is not None
         ):
 
             return f"<h2>Sorry! Username <em>{user_name}</em> is already taken,select another username and</h2><a href = '/gidregister'>" + "<strong>Register again</strong></a>"
 
         else:
-            # the name is not in system, store it in the database and go to
-            # the login page
+            """ the name is not in system, store it in the database and go to
+            the login page"""
             gidcursor.execute(
                 "INSERT INTO personnels (Personnel_First_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_address,Personnel_Country,Personnel_City_Of_Residence,Personnel_Qualifications,Personnel_Experiences,Personnel_Skills,Personnel_Gps_Location,Personnel_Date_Of_Registration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (
@@ -148,7 +148,7 @@ def employer_register():
         eError=None
 
         if (
-            gidcursor.execute("SELECT Employer_Id_No FROM employers WHERE Employer_User_Name = %s", (eUserName,)).fetchone()
+            gidcursor.execute("SELECT Employer_Id_No FROM employers WHERE Employer_User_Name = (%s)", (eUserName)).fetchone()
             is not None
         ):
 
@@ -206,7 +206,7 @@ def login():
         password = request.form["password"]
         error = None
         user = gidcursor.execute(
-            "SELECT * FROM personnels WHERE Personnel_User_Name = ANY(%s)", (username,)
+            "SELECT * FROM personnels WHERE Personnel_User_Name =(%s)", (username)
         ).fetchone()
 
         if user is None:
@@ -231,7 +231,7 @@ def employer_login():
         epassWord = request.form["PassWord"]
         error = None
         userEmployer = gidcursor.execute(
-            "SELECT * FROM employers WHERE Employer_User_Name = %s", (euserName,)
+            "SELECT * FROM employers WHERE Employer_User_Name = (%s)", (euserName)
         ).fetchone()
 
         if userEmployer is None:
@@ -265,13 +265,13 @@ def employerhomepage():
     """employerhomepage.html."""
     loggedinemployer=session["employer_user_id"]
     useremployer = gidcursor.execute(
-            "SELECT * FROM employers WHERE Employer_Id_No = %s", (loggedinemployer,)
+            "SELECT * FROM employers WHERE Employer_Id_No = (%s)", (loggedinemployer)
         ).fetchone()
     username=useremployer[3]
     username1=username[0]
     taskStatus = gidcursor.execute(
-        "SELECT * FROM tasks WHERE Employer_Identity=%s"
-        " ORDER BY Task_Date_Of_Post DESC", (loggedinemployer,)
+        "SELECT * FROM tasks WHERE Employer_Identity=(%s)"
+        " ORDER BY Task_Date_Of_Post DESC", (loggedinemployer)
     ).fetchall()
     return render_template("gidemployerhomepage.html",username1=username1,username=username,taskStatus=taskStatus)
 
@@ -295,7 +295,7 @@ def personnelhomepage():
     """personnelhomepage.html"""
     loggedinuser=session["user_id"]
     user = gidcursor.execute(
-            "SELECT * FROM personnels WHERE Personnel_Id_No = %s", (loggedinuser,)
+            "SELECT * FROM personnels WHERE Personnel_Id_No = (%s)", (loggedinuser)
         ).fetchone()
     userfirstname1=user[1]
     userlastname=user[2]
