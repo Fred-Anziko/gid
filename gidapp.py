@@ -8,7 +8,7 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 from gidhelpers import login_required, lookup, login_as_employer_required
 import gidmodal
-from gidmodal import gidconnection,gidcursor
+from gidmodal import gidconnection
 import waitress
 import psycopg2
 
