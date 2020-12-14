@@ -1,12 +1,11 @@
-import os
 import psycopg2
 
 ########MODAL/DATABASE########BEGINS
 #connection to the PostgreSQL giddatabase.db file
 try:
-    gidconnection=psycopg2.connect(dbname="dfsa03v8p04jmu", user="wknclumkqzhvkj", password="303a711a2a4fdf3d1905187b1f79b85ccd13baa1d633f3276d4db32e314e6188", host="ec2-34-200-106-49.compute-1.amazonaws.com", port="5432")
+    gidconnection=psycopg2.connect(dbname="giddatabase", user="anzikofred@gmail.com", password="Afeku demetrio2020", host="ibm", port="5432")
 except:
-    gidconnection=psycopg2.connect(dbname="giddatabase", user="postgres", password="Afeku demetrio2020")
+     gidconnection=psycopg2.connect(dbname="giddatabase", user="postgres", password="Afeku demetrio2020")
 ##creat Database tables in giddatabase begins##
 gidcursor=gidconnection.cursor()
 # Create employers table
