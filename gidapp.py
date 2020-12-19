@@ -92,7 +92,8 @@ def register():
         """acessing DB2 database to check if the username exists"""
         check_userame_sql="SELECT Personnel_Id_No FROM personnels WHERE Personnel_User_Name =?"
         check_userame_sql_prepared=ibm_db.prepare(gidconnection,check_userame_sql)
-        check_userame_sql_parameters=user_name,generate_password_hash(password)
+        check_userame_sql_parameters=()
+        check_userame_sql_parameters=user_name
         personnel_username_checked=ibm_db.execute(check_userame_sql_prepared,check_userame_sql_parameters).ibm_db.fetch_assoc()
         if personnel_username_checked is not None:
 
@@ -131,7 +132,8 @@ def employer_register():
         
         employer_check_sql="SELECT Employer_Id_No FROM employers WHERE Employer_User_Name = ?"
         employer_check_sql_prepared=ibm_db.prepare(gidconnection,employer_check_sql)
-        employer_check_sql_parameters=eUserName,generate_password_hash(ePassword)
+        employer_check_sql_parameters=()
+        employer_check_sql_parameters=eUserName
         employer_username_checked=ibm_db.execute(employer_check_sql_prepared,employer_check_sql_parameters).ibm_db.fetch_assoc()
 
         if employer_username_checked is not None:
