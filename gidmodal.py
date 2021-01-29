@@ -1,5 +1,5 @@
 import ibm_db
-import psycopg2
+#import psycopg2
 
 ########MODAL/DATABASE########BEGINS
 gidconnection=False
