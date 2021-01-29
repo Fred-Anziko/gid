@@ -1,6 +1,5 @@
 import ibm_db
-#import psycopg2
-
+# import psycopg2
 ########MODAL/DATABASE########BEGINS
 gidconnection=False
 #connection to the DB2 database for gidweb on IBM cloud
@@ -33,29 +32,30 @@ else:
   "uri": "db2://wtg44875:x0%40jrhzljmp7996f@dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
   "username": "wtg44875"
 """
-"""Create employers table"""
+"""Create personnel table
 try:
-    gidemployee_sql="CREATE TABLE employer(Employer_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Employer_First_Name VARCHAR(25),Employer_Last_Name VARCHAR(25),Employer_User_Name VARCHAR(25) UNIQUE NOT NULL,Employer_Password VARCHAR(25) NOT NULL,Employer_Tel_No VARCHAR(25),Employer_Email_Address VARCHAR(25),Employer_Country CHAR,Employer_City_Of_Residence VARCHAR(25),Employer_Gps_Location DECIMAL(10,2) NOT NULL,Employer_Date_Of_Registration TIMESTAMP NOT NULL)"
-    ibm_db.exec_immediate(gidconnection,gidemployee_sql)
+    gidpersonnel_sql="CREATE TABLE personnel(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Personnel_First_Name VARCHAR(25),Personnel_Middle_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) NOT NULL,Personnel_Password VARCHAR(25) NOT NULL,Personnel_Tel_No VARCHAR(25),Personnel_Email_Address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25),Personnel_DOB DATE,Personnel_Gps_Location_Long DECIMAL(10,2),Personnel_Gps_Location_Lat DECIMAL(10,2),Personnel_Date_Of_Registration TIMESTAMP NOT NULL,Personnel_Facial_Reco BLOB)"
+    ibm_db.exec_immediate(gidconnection,gidpersonnel_sql)
 except:
     print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
 else:
     print ("Transaction complete.")
 
 
-"""Create tasks table for holding task posting and updating details"""
+Create tasks table for holding task posting and updating details
 try:
-    gidtasks_sql="CREATE TABLE tasks(Task_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Employer_Identity INTEGER NOT NULL,Task_Category VARCHAR(25),Task_Name VARCHAR(25),Task_Description VARCHAR(250),Task_Requirements VARCHAR(250),Task_Gps_Location DECIMAL(10,2),Task_Budget_Amount DECIMAL(10,2),Task_Budget_Currency VARCHAR(25),Task_Date_Of_Post TIMESTAMP NOT NULL,Task_Deadline DATE)" # FOREIGN KEY (Employer_Identity) REFERENCES employers (Employer_Id_No))"
+    gidtasks_sql="CREATE TABLE tasks(Task_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Personel_Employer_Identity INTEGER NOT NULL,Task_Category VARCHAR(25),Task_Name VARCHAR(25),Task_Description VARCHAR(250),Task_Requirements VARCHAR(250),Task_Gps_Location_Long DECIMAL(10,2),Task_Gps_Location_Lat DECIMAL(10,2),Task_Budget_Amount DECIMAL(10,2),Task_Budget_Currency VARCHAR(25),Task_Date_Of_Post  TIMESTAMP NOT NULL,Task_Deadline DATE)"
     ibm_db.exec_immediate(gidconnection,gidtasks_sql)
 except:
     print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
 else:
     print ("Transaction complete.")
-"""Create personnel table"""
+Create expert table
 try:
-    gidpersonnels_sql="CREATE TABLE personnels(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Personnel_First_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) UNIQUE NOT NULL, Personnel_Password VARCHAR(25) NOT NULL, Personnel_Tel_No VARCHAR(25), Personnel_Email_address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25), Personnel_Qualifications VARCHAR(250),Personnel_Experiences VARCHAR(250),Personnel_Skills VARCHAR(25),Personnel_Gps_Location DECIMAL(10,2) NOT NULL,Personnel_Date_Of_Registration TIMESTAMP NOT NULL)"
-    ibm_db.exec_immediate(gidconnection,gidpersonnels_sql)
+    gidexpert_sql="CREATE TABLE experts(Personnel_Expert_Id_No INTEGER NOT NULL,Expert_Purpose_And_Desires VARCHAR(250),Expert_Qualifications VARCHAR(250),Expert_Skills VARCHAR(250),Expert_Interests_And_Hobbies VARCHAR(250),Expert_Referee_Name VARCHAR(25),Expert_Referee_Contact VARCHAR(25),Expert_Facial_Reco BLOB)"
+    ibm_db.exec_immediate(gidconnection,gidexpert_sql)
 except:
     print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
 else:
     print ("Transaction complete.")
+    """
