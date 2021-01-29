@@ -1,5 +1,5 @@
 import ibm_db
-import psycopg2
+#import psycopg2
 
 ########MODAL/DATABASE########BEGINS
 gidconnection=False
@@ -35,7 +35,7 @@ else:
 """
 """Create personnel table"""
 try:
-    gidpersonnel_sql="CREATE TABLE personnel(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Personnel_First_Name VARCHAR(25),Personnel_Middle_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) NOT NULL,Personnel_Password VARCHAR(25) NOT NULL,Personnel_Tel_No VARCHAR(25),Personnel_Email_Address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25),Personnel_DOB DATE,Personnel_Gps_Location_Long DECIMAL(10,2),Personnel_Gps_Location_Lat DECIMAL(10,2),Personnel_Date_Of_Registration DEFAULT CURRENT TIMESTAMP NOT NULL,Personnel_Facial_Reco BLOB)"
+    gidpersonnel_sql="CREATE TABLE personnel(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Personnel_First_Name VARCHAR(25),Personnel_Middle_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) NOT NULL,Personnel_Password VARCHAR(25) NOT NULL,Personnel_Tel_No VARCHAR(25),Personnel_Email_Address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25),Personnel_DOB DATE,Personnel_Gps_Location_Long DECIMAL(10,2),Personnel_Gps_Location_Lat DECIMAL(10,2),Personnel_Date_Of_Registration CURRENT TIMESTAMP NOT NULL,Personnel_Facial_Reco BLOB)"
     ibm_db.exec_immediate(gidconnection,gidpersonnel_sql)
 except:
     print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
@@ -45,7 +45,7 @@ else:
 
 """Create tasks table for holding task posting and updating details"""
 try:
-    gidtasks_sql="CREATE TABLE tasks(Task_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Personel_Employer_Identity INTEGER NOT NULL FOREIGN KEY(Personnel_Id_No) REFERENCES personnel ON DELETE RESTRICT,Task_Category VARCHAR(25),Task_Name VARCHAR(25),Task_Description VARCHAR(250),Task_Requirements VARCHAR(250),Task_Gps_Location_Long DECIMAL(10,2),Task_Gps_Location_Lat DECIMAL(10,2),Task_Budget_Amount DECIMAL(10,2),Task_Budget_Currency VARCHAR(25),Task_Date_Of_Post DEFAULT CURRENT TIMESTAMP NOT NULL,Task_Deadline DATE)"
+    gidtasks_sql="CREATE TABLE tasks(Task_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Personel_Employer_Identity INTEGER NOT NULL FOREIGN KEY(Personnel_Id_No) REFERENCES personnel ON DELETE RESTRICT,Task_Category VARCHAR(25),Task_Name VARCHAR(25),Task_Description VARCHAR(250),Task_Requirements VARCHAR(250),Task_Gps_Location_Long DECIMAL(10,2),Task_Gps_Location_Lat DECIMAL(10,2),Task_Budget_Amount DECIMAL(10,2),Task_Budget_Currency VARCHAR(25),Task_Date_Of_Post CURRENT TIMESTAMP NOT NULL,Task_Deadline DATE)"
     ibm_db.exec_immediate(gidconnection,gidtasks_sql)
 except:
     print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
