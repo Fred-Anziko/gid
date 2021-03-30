@@ -70,29 +70,32 @@ def gid_search_engine():
 @gidapp.route("/gidregister", methods=["GET", "POST"])
 def register():
 
-    """Register a new user as personnel by
+    """Register a new user as personnel
 
     Validates that the username is not already taken. Hashes the
     password for security.
     """
     if request.method == "POST":
         firstname = request.form["first_name"]
+        middlename=request.form["middle_name"]
         lastname = request.form["last_name"]
         country = request.form["country"]
         city = request.form["city"]
         email = request.form["email"]
         telephone = request.form["telephone"]
-        qualification = request.form["qualification"]
-        experiences = request.form["experiences"]
-        skills = request.form["skills"]
+        dob=request.form["date_of_birth"]
+        #qualification = request.form["qualification"]
+        #experiences = request.form["experiences"]
+        #skills = request.form["skills"]
         user_name = request.form["user_name"]
         password = request.form["password"]
-        personnel_gps=50000
+        gpslong=0.5000
+        gpslat=0.5000
+        photo=None
         date_of_reg=datetime.datetime.now()
         """acessing DB2 database to check if the username exists"""
-        check_userame_sql="SELECT Personnel_Id_No FROM personnels WHERE Personnel_User_Name =?"
+        check_userame_sql="SELECT Personnel_Id_No FROM personnel WHERE Personnel_User_Name =?"
         check_userame_sql_prepared=ibm_db.prepare(gidconnection,check_userame_sql)
-        check_userame_sql_parameters=()
         check_userame_sql_parameters=user_name
         personnel_username_checked=ibm_db.execute(check_userame_sql_prepared,check_userame_sql_parameters).ibm_db.fetch_assoc()
         if personnel_username_checked is not None:
@@ -102,9 +105,9 @@ def register():
         else:
             """ the name is not in system, store it in the database and go to
             the login page"""
-            personnel_register_sql="INSERT INTO personnels (Personnel_First_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_address,Personnel_Country,Personnel_City_Of_Residence,Personnel_Qualifications,Personnel_Experiences,Personnel_Skills,Personnel_Gps_Location,Personnel_Date_Of_Registration) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            personnel_register_sql="INSERT INTO personnel (Personnel_First_Name,Personnel_Middle_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_Address,Personnel_Country,Personnel_City_Of_Residence,Personnel_DOB,Personnel_Gps_Location_Long,Personnel_Gps_Location_Lat,Personnel_Date_Of_Registration,Personnel_Facial_Reco) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
             personnel_register_sql_prepared=ibm_db.prepare(gidconnection,personnel_register_sql)
-            personnel_sql_parameters=firstname,lastname,user_name,generate_password_hash(password),telephone,email,country,city,qualification,experiences,skills,personnel_gps,date_of_reg
+            personnel_sql_parameters=firstname,middlename,lastname,user_name,generate_password_hash(password),telephone,email,country,city,dob,gpslong,gpslat,date_of_reg,photo
             ibm_db.execute(personnel_register_sql_prepared,personnel_sql_parameters)
             return redirect("/gidlogin")
     else:
@@ -112,44 +115,7 @@ def register():
 
 
 
-@gidapp.route("/employergidregister", methods=["GET", "POST"])
-def employer_register():
-    """Register user as employer to creat and post job and
-    Validates that the username is not already taken. Hashes the
-    password for security."""
 
-    if request.method == "POST":
-        efirstName = request.form["firstName"]
-        elastName = request.form["lastName"]
-        eCountry = request.form["Country"]
-        eCity = request.form["City"]
-        eEmail = request.form["Email"]
-        eTelephone = request.form["Telephone"]
-        eUserName = request.form["userName"]
-        ePassword = request.form["Password"]
-        eEmployer_Gps=50000
-        eDate_of_Reg=datetime.datetime.now()
-        
-        employer_check_sql="SELECT Employer_Id_No FROM employers WHERE Employer_User_Name = ?"
-        employer_check_sql_prepared=ibm_db.prepare(gidconnection,employer_check_sql)
-        employer_check_sql_parameters=()
-        employer_check_sql_parameters=eUserName
-        employer_username_checked=ibm_db.execute(employer_check_sql_prepared,employer_check_sql_parameters).ibm_db.fetch_assoc()
-
-        if employer_username_checked is not None:
-
-            return f"<h2>Sorry! Username <em>{eUserName}</em> is already taken,select another username and</h2><a href = '/employergidregister'>" + "<strong>Register again</strong></a>"
-
-        else:
-            # the name is not in system, store it in the database and go to
-            # the login page
-            employer_register_sql="INSERT INTO employers (Employer_First_Name,Employer_Last_Name,Employer_User_Name,Employer_Password,Employer_Tel_No,Employer_Email_Address,Employer_Country,Employer_City_Of_Residence,Employer_Gps_Location,Employer_Date_Of_Registration) VALUES (?,?,?,?,?,?,?,?,?,?)"
-            employer_register_sql_prepared=ibm_db.prepare(gidconnection,employer_register_sql)
-            employer_register_sql_parameters=efirstName,elastName,eUserName,generate_password_hash(ePassword),eTelephone,eEmail,eCountry,eCity,eEmployer_Gps,eDate_of_Reg
-            ibm_db.execute(employer_register_sql_prepared,employer_register_sql_parameters)
-            return redirect("/employergidlogin")
-    else:
-        return render_template("employerregistry.html")
 
 
 #@gidapp.before_app_request
@@ -170,52 +136,33 @@ def employer_register():
 
 @gidapp.route("/gidlogin", methods=["GET", "POST"])
 def login():
-    """Log in a registered user by adding the user id to the session."""
+    """Log in a registered personell"""
     session.clear()
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        user_sql ="SELECT * FROM personnels WHERE Personnel_User_Name =?"
+        user_sql ="SELECT * FROM personnel WHERE Personnel_User_Name =?"
         user_sql_prepared=ibm_db.prepare(gidconnection,user_sql)
         user_sql_parameters=username
         user_personnel=ibm_db.execute(user_sql_prepared,user_sql_parameters).ibm_db.fetch_assoc()
 
         if user_personnel is None:
             return "<h2>Incorrect username, Sorry you have not been logged in!</h2><br><a href = '/gidlogin'>" + "<strong>Login again</strong></a>"
-        elif not check_password_hash(user_personnel[4], password):
+        elif not check_password_hash(user_personnel["Personnel_Password"], password):
             return "<h2>Incorrect password, Sorry you have not been logged in!</h2><br><a href = '/gidlogin'>" + "<strong>Login again</strong></a>"
 
         else:
             # store the user id in a new session and return to the index
-            session["user_id"] = user_personnel[0]
+            session["user_id"] = user_personnel["Personnel_Id_No"]
             return redirect("/personnelhomepage")
     else:
         return render_template("gidlogin.html")
 
 
-@gidapp.route("/employergidlogin", methods=["GET", "POST"])
-def employer_login():
-    #Log in a registered user by adding the user id to the session.
-    session.clear()
-    if request.method == "POST":
-        euserName = request.form["userName"]
-        epassWord = request.form["PassWord"]
-        user_employer_sql="SELECT * FROM employers WHERE Employer_User_Name = ?"
-        user_employer_sql_prepared=ibm_db.prepare(gidconnection,user_employer_sql)
-        user_employer_sql_parameters=euserName
-        user_employer=ibm_db.execute(user_employer_sql_prepared,user_employer_sql_parameters)
-
-        if user_employer is None:
-            return "<h2>Incorrect username, Sorry you have not been logged in!</h2><br><a href = '/employergidlogin'>" + "<strong>Login again</strong></a>"
-        elif not check_password_hash(user_employer[4], epassWord):
-            return "<h2>Incorrect password, Sorry you have not been logged in!</h2><br><a href = '/employergidlogin'>" + "<strong>Login again</strong></a>"
-
-        else:
-            # store the user id in a new session and redirect to employers page
-            session["employer_user_id"] = user_employer[0]
-            return redirect("/employerhomepage")
-    else:
-        return render_template("employergidlogin.html")
+#registration as expert to do job and build cv/profile
+@gidapp.route("/gidexperts", methods=["GET", "POST"])
+def expertregisterupdater():
+    pass
 
 @gidapp.route("/gidlogout")
 def logout():
@@ -224,12 +171,7 @@ def logout():
     return redirect("/gidlogin")
 
 
-@gidapp.route("/gidemployerlogout")
-def employer_logout():
-    """Clear the current session, including the stored user id."""
-    session.clear()
-    return redirect("/employergidlogin")
-
+"""to be continued"""
 @gidapp.route("/employerhomepage", methods=["GET", "POST"])
 @login_as_employer_required
 def employerhomepage():
