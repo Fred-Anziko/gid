@@ -13,21 +13,21 @@ def login_required(f):
             return redirect("/gidlogin")
         return f(*args, **kwargs)
     return decorated_function
-    
+"""    
 def login_as_employer_required(e):
-    """
+
     Decorate routes to require login for employers.
-    """
+
     @wraps(e)
     def employer_decorated_function(*args, **kwargs):
         if session.get("employer_user_id") is None:
             return redirect("/employergidlogin")
         return e(*args, **kwargs)
     return employer_decorated_function
-
-
+"""
+"""Look up quote for symbol.
 def lookup(symbol):
-    """Look up quote for symbol."""
+
 
     # Contact API
     try:
@@ -48,7 +48,7 @@ def lookup(symbol):
     except (KeyError, TypeError, ValueError):
         return None
 
-
+"""
 def usd(value):
     """Format value as USD."""
     return f"${value:,.2f}"

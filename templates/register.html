@@ -136,10 +136,10 @@ hr {
 <body>
 
 <div  class="modal">
-<h2><em>Please register</em></h2>
+<h2><em>Register</em></h2>
   <form class="modal-content animate" action="/gidregister" method="post">
     <div class="container">
-      <p><em><strong>Please fill this form to register an account and start to work.</strong></em></p>
+      <p><em><strong>Please register account & Get It Done-GID.</strong></em></p>
 	  <hr>
 	  <img src="static/images/gidregisterpic.png" width="100%" height="250px">
       <hr>
@@ -161,14 +161,8 @@ hr {
 	  <label for="telephone"><b>Tel.Number</b></label>
       <input type="text" placeholder="Mobile Telephone Number" name="telephone" required>
 	  
-	  <label for="qualification"><b>Qualification</b></label>
-      <input type="text" placeholder="Your Academic Qualification" name="qualification" required>
-	  
-      <label for="experiences"><b>Experiences</b></label>
-      <input type="text" placeholder="Your experiences" name="experiences" required>
-	  
-	  <label for="skills"><b>Skills</b></label>
-      <input type="text" placeholder="Your skills" name="skills" required>
+      <label for="date_of_birth"><b>Date of Birth</b></label>
+      <input type="date" placeholder="dd/mm/year" name="date_of_birth" required>
       
       <label for="user_name"><b>User Name</b></label>
       <input type="text" placeholder="User name" name="user_name" required>
@@ -194,6 +188,23 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+// position auto input
+var gidgps = document.getElementById("gidpositioning");
+
+window.onload= function getLocation(event) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    gidgps.value = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPositionLat(position) {
+  gidgps.value = position.coords.latitude;
+}
+function showPositionLong(position) {
+  gidgps.value = position.coords.longitude;
 }
 </script>
 

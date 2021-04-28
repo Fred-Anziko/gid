@@ -27,8 +27,8 @@
 <!-- Top menu -->
 <div class="w3-top">
      <div class="w3-light-blue w3-xlarge" style="max-width:1200px;margin:auto">
-     <div class="w3-button w3-padding-small w3-left w3-blue w3-round-xlarge"<strong><a href="static/registerlinker.html">Register</a></strong></div>
-	 <div class="w3-button w3-right w3-padding-small w3-blue w3-round-xlarge"<strong><a href="static/loginlinker.html">Login</a></strong></div>
+     <div class="w3-button w3-padding-small w3-left w3-round-xlarge"<strong><a href="/gidregister">Register</a></strong></div>
+	 <div class="w3-button w3-right w3-padding-small w3-round-xlarge"<strong><a href="/gidlogin">Login</a></strong></div>
      <div class="w3-center w3-padding-16">
 	 <h1>gid</h1>
 	 <form action="/gidsearchengine" method="post">
@@ -53,18 +53,17 @@
 <!--header ends here-->
 <!--navigation begins here-->
 <div class="navbar">
-  <a href="/gidhome"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Home</a>
-  <a href="/gidtasks"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Tasks</a>
-  <a href="static/registerlinker.html"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Register</a>
-  <a href="static/loginlinker.html"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Login</a>
+  <a href="/gidregister"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Register</a>
+  <a href="/gidlogin"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Login</a>
   <a href="mailto:fredanziko@gmail.com"class="w3-col.s1 w3-col.m1 w3-btn w3-button w3-btn:hover">Contact us</a>
 </div>
 <br>
-<!--navigation ends here-->
+<!--navigation ends here
 <div class="button1">
-<a href="/employergidlogin"class="w3-col.s5">Post a Task</a>
+<a href="/gidlogin"class="w3-col.s5">Post a Task</a>
 <a href="/gidlogin"class="w3-green">Do a Task</a>
  </div> 
+ -->
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding w3-gray" style="max-width:1200px;margin-top:100px">
 
@@ -108,6 +107,16 @@ function w3_open() {
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
 }
+// continues position update to determine location of users for accurate service provision
+if (navigator.geolocation) {
+ //after the user indicates that they want to turn on continuous location-tracking
+ var watchId = navigator.geolocation.watchPosition(updateLocation, geolocationFailure);
+} else {
+ console.log("Geolocation is not supported by this browser.");
+}
+var updateLocation = function(position) {
+ console.log("New position at: " + position.coords.latitude + ", " + position.coords.longitude);
+};
  
 </script>
 
