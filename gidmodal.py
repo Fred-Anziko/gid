@@ -5,7 +5,7 @@ import ibm_db
 gidconnection=False
 #connection to the DB2 database for gidweb on IBM cloud
 try:
-    gidconnection= ibm_db.pconnect("DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;","","")
+    gidconnection= ibm_db.pconnect("DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f","","")
 except:
     print( "No connection:" , ibm_db.conn_errormsg())
 else:
@@ -17,6 +17,18 @@ else:
 
 
 """DB2 CONNECTION PARAMETERS ON IBM CLOUD FOUNDRY
+#####
+  "db": "BLUDB",
+  "dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;",
+  "host": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
+  "hostname": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
+  "https_url": "https://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:8443",
+  "jdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
+  "parameters": {
+    "role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+  }, 
+  #0###
+  {
   "db": "BLUDB",
   "dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;",
   "host": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
@@ -26,6 +38,14 @@ else:
   "parameters": {
     "role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager"
   },
+  "password": "x0@jrhzljmp7996f",
+  "port": 50000,
+  "ssldsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50001;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;Security=SSL;",
+  "ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50001/BLUDB:sslConnection=true;",
+  "uri": "db2://wtg44875:x0%40jrhzljmp7996f@dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
+  "username": "wtg44875"
+}
+  #1###
   "password": "x0@jrhzljmp7996f",
   "port": 50000,
   "ssldsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50001;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;Security=SSL;",
