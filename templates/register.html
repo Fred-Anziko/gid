@@ -1,9 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <title>gidweb.com</title> <!--for SEO-->
+            <meta http-equiv="content-type" content="text/html/> <!--choosing character type-->
+            <meta name="keywords" content="gid,get it done,register" /> <!--for SEO -->
+            <meta name="description" content="get it done"/> <!--for SEO-->
+            <meta name="robots" content="all,index" /> <!--allow or block indexing of site content by automated search engines-->
+			<meta name="mobile-web-app-capable" content="yes" /> <!--android chrome web app on home screen-->
+			<meta name="apple-mobile-web-app-capable" content="yes" /> <!--iOS web app on homescreen-->
+            <meta name="Revisits-After"content ="30 Days" /> <!--assists search engine how regular they should update-->
+            <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
+			<!--link rel="stylesheet" href="/static/stylesheets/gidstyles.css"-->
+			<link rel="icon" type="image/png" href="/static/images/gidicon.png"> <!--attach icon of the platform-->
+            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
+            <!--<script src='OSC.js'></script> <!--geolocation html5 code starts here -->
+            <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script><!--geolocation-->
+			<meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-color:indigo;}
+color:gray;}
 * {box-sizing: border-box;}
 
 /* Full-width input fields */
@@ -21,6 +38,11 @@ input[type=text], input[type=password],input[type=date] {
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
+}
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
 }
 
 /* Set a style for all buttons */
@@ -54,7 +76,7 @@ button:hover {
 
 /* Add padding to container elements */
 .container {
-  padding: 16px;
+  padding: 10px;
 }
 
 /* The Modal (background) */
@@ -69,16 +91,16 @@ button:hover {
   background-color: lightblue;
   padding-top:20px;
   border:2px solid white;
-  border-radius:20px;
+  border-radius:10px;
 }
 
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 2% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  margin: 2% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
   border:2px solid white;
   border-radius:20px;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 70%; /* Could be more or less, depending on screen size */
 }
 
 /* Style the horizontal ruler */
@@ -136,10 +158,10 @@ hr {
 <body>
 
 <div  class="modal">
-<h2><em>Register</em></h2>
+<h1>Register</h1>
   <form class="modal-content animate" action="/gidregister" method="post">
-    <div class="container">
-      <p><em><strong>Please register account & Get It Done-GID.</strong></em></p>
+    <div class="imgcontainer">
+      <h3><strong>gidweb</strong></h3>
 	  <hr>
 	  <img src="static/images/gidregisterpic.png" width="100%" height="250px">
       <hr>
@@ -158,7 +180,7 @@ hr {
 	  <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Email" name="email" required>
 	  
-	  <label for="telephone"><b>Tel.Number</b></label>
+	  <label for="telephone"><b>Tel Number</b></label>
       <input type="text" placeholder="Mobile Telephone Number" name="telephone" required>
 	  
       <label for="date_of_birth"><b>Date of Birth</b></label>
@@ -177,9 +199,15 @@ hr {
       </div>
     </div>
   </form>
-</div>
-
+  <h2>©whiterhino inc.</h2>
+  <h6> 
+ <script>
+ var today=new Date(Date.now());
+ document.write(today);
+ </script>
+ </h6>
 <script>
+</div>
 // Get the modal
 var modal = document.getElementById('id01');
 

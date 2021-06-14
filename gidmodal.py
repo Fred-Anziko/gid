@@ -1,6 +1,10 @@
-import ibm_db
-#import psycopg2
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jun 11 13:31:34 2021
 
+@author: Anziko Fred
+"""
+import ibm_db
 ########MODAL/DATABASE########BEGINS
 gidconnection=False
 #connection to the DB2 database for gidweb on IBM cloud
@@ -8,78 +12,47 @@ try:
     gidconnection= ibm_db.pconnect("DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f","","")
 except:
     print( "No connection:" , ibm_db.conn_errormsg())
+    print("Connection Denied")
 else:
     print ("Connection established.")
-#except:
-#     gidconnection=psycopg2.connect(dbname="giddatabase", user="postgres", password="Afeku demetrio2020")
-##creat Database tables in giddatabase begins##
-#gidcursor=gidconnection.cursor()
 
 
-"""DB2 CONNECTION PARAMETERS ON IBM CLOUD FOUNDRY
-#####
-  "db": "BLUDB",
-  "dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;",
-  "host": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
-  "hostname": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
-  "https_url": "https://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:8443",
-  "jdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
-  "parameters": {
-    "role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-  }, 
-  #0###
-  {
-  "db": "BLUDB",
-  "dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;",
-  "host": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
-  "hostname": "dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net",
-  "https_url": "https://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:8443",
-  "jdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
-  "parameters": {
-    "role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-  },
-  "password": "x0@jrhzljmp7996f",
-  "port": 50000,
-  "ssldsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50001;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;Security=SSL;",
-  "ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50001/BLUDB:sslConnection=true;",
-  "uri": "db2://wtg44875:x0%40jrhzljmp7996f@dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
-  "username": "wtg44875"
-}
-  #1###
-  "password": "x0@jrhzljmp7996f",
-  "port": 50000,
-  "ssldsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net;PORT=50001;PROTOCOL=TCPIP;UID=wtg44875;PWD=x0@jrhzljmp7996f;Security=SSL;",
-  "ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50001/BLUDB:sslConnection=true;",
-  "uri": "db2://wtg44875:x0%40jrhzljmp7996f@dashdb-txn-sbox-yp-lon02-15.services.eu-gb.bluemix.net:50000/BLUDB",
-  "username": "wtg44875"
-"""
-"""Create personnel table
+"""Create personnel table"""
 try:
-    gidpersonnel_sql="CREATE TABLE personnel(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Personnel_First_Name VARCHAR(25),Personnel_Middle_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) NOT NULL,Personnel_Password VARCHAR(25) NOT NULL,Personnel_Tel_No VARCHAR(25),Personnel_Email_Address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25),Personnel_DOB DATE,Personnel_Gps_Location_Long DECIMAL(10,2),Personnel_Gps_Location_Lat DECIMAL(10,2),Personnel_Date_Of_Registration TIMESTAMP NOT NULL,Personnel_Facial_Reco BLOB)"
-    ibm_db.exec_immediate(gidconnection,gidpersonnel_sql)
+    gid_personnel_sql="CREATE TABLE personnel(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Personnel_First_Name VARCHAR(25),Personnel_Middle_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) NOT NULL,Personnel_Password VARCHAR(25) NOT NULL,Personnel_Tel_No VARCHAR(25),Personnel_Email_Address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25),Personnel_DOB DATE,Personnel_Gps_Location_Long DECIMAL(10,2),Personnel_Gps_Location_Lat DECIMAL(10,2),Personnel_Date_Of_Registration TIMESTAMP NOT NULL,Personnel_Facial_Reco BLOB)"
+    ibm_db.exec_immediate(gidconnection,gid_personnel_sql)
 except:
-    print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
+    print( "personnel table couldn't be completed:" , ibm_db.stmt_errormsg())
 else:
-    print ("Transaction complete.")
+    print ("personnel table completed.")
 
 
-#Create tasks table for holding task posting and updating details
+#Create todo_tasks table
 try:
 
-    gidtasks_sql="CREATE TABLE tasks(Task_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Personel_Employer_Identity INTEGER NOT NULL,Task_Category VARCHAR(25),Task_Name VARCHAR(25),Task_Description VARCHAR(250),Task_Requirements VARCHAR(250),Task_Gps_Location_Long DECIMAL(10,2),Task_Gps_Location_Lat DECIMAL(10,2),Task_Budget_Amount DECIMAL(10,2),Task_Budget_Currency VARCHAR(25),Task_Date_Of_Post  TIMESTAMP NOT NULL,Task_Deadline DATE)"
+    gid_todotasks_sql="CREATE TABLE todo_tasks(Task_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),Personel_Employer_Identity INTEGER NOT NULL,Task_Category VARCHAR(25),Task_Name VARCHAR(25),Task_Description VARCHAR(250),Task_Requirements VARCHAR(250),Task_Gps_Location_Long DECIMAL(10,2),Task_Gps_Location_Lat DECIMAL(10,2),Task_Budget_Amount DECIMAL(10,2),Task_Budget_Currency VARCHAR(25),Task_Date_Of_Post  TIMESTAMP NOT NULL,Task_Deadline DATE)"
 
-    ibm_db.exec_immediate(gidconnection,gidtasks_sql)
+    ibm_db.exec_immediate(gidconnection,gid_todotasks_sql)
 except:
-    print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
+    print( "todo tasks couldn't be completed:" , ibm_db.stmt_errormsg())
 else:
-    print ("Transaction complete.")
+    print ("todo tasks table completed.")
 #Create expert table
 try:
-    gidexpert_sql="CREATE TABLE experts(Personnel_Expert_Id_No INTEGER NOT NULL,Expert_Purpose_And_Desires VARCHAR(250),Expert_Qualifications VARCHAR(250),Expert_Skills VARCHAR(250),Expert_Interests_And_Hobbies VARCHAR(250),Expert_Referee_Name VARCHAR(25),Expert_Referee_Contact VARCHAR(25),Expert_Facial_Reco BLOB)"
-    ibm_db.exec_immediate(gidconnection,gidexpert_sql)
+    gid_expert_sql="CREATE TABLE experts(Personnel_Expert_Id_No PRIMARY KEY INTEGER NOT NULL,Expert_Purpose_And_Desires VARCHAR(250),Expert_Qualifications VARCHAR(250),Expert_Skills VARCHAR(250),Expert_Interests_And_Hobbies VARCHAR(250),Expert_Referee_Name VARCHAR(25),Expert_Referee_Contact VARCHAR(25),Expert_Facial_Reco BLOB)"
+    ibm_db.exec_immediate(gidconnection,gid_expert_sql)
 except:
-    print( "Transaction couldn't be completed:" , ibm_db.stmt_errormsg())
+    print( "expert table couldn't be completed:" , ibm_db.stmt_errormsg())
 else:
-    print ("Transaction complete.")
-    """
+    print ("expert table completed.")
+#Create done_tasks table
+try:
+
+    gid_donetasks_sql="CREATE TABLE todo_tasks(Task_Id_No PRIMARY KEY INTERGER NOT NULL,Personnel_Expert_Id_No PRIMARY KEY INTEGER NOT NULL,Date_Task_Done TIMESTAMP NOT NULL)"
+
+    ibm_db.exec_immediate(gidconnection,gid_donetasks_sql)
+except:
+    print( "done tasks table couldn't be completed:" , ibm_db.stmt_errormsg())
+else:
+    print ("done tasks table completed.")
     
