@@ -167,14 +167,7 @@ a{
   background-color:white;
   width:50%;  
 }
-/* style submit button*/
-.searchsubmit{
-  border:2px solid transparent;
-  border-radius:10px;
-  background-color:white;
-  color:gray;
-  width:10%;
-}
+
 		
 
 input[type=button] {
@@ -436,7 +429,7 @@ input[type=button]:hover {
  @keyframes animatetop{from{top:-300px;opacity:0}
  to{top:0;opacity:1}
  }
- .animate-left{position:relative;animation:animateleft 20s}
+ .animate-left{position:relative;animation:animateleft 5s}
  @keyframes animateleft{from{left:-300px;opacity:0}
  to{left:0;opacity:1}
  }
@@ -505,6 +498,7 @@ input[type=button]:hover {
  .transparent,.hover-none:hover{background-color:transparent!important}
  .hover-none:hover{box-shadow:none!important}
  /* Colors */
+ .backgroundcolor-silver{background-color:silver!important;}
  .backgroundcolor-amber,.backgroundcolor-hover-amber:hover{color:#000!important;background-color:#ffc107!important}
  .backgroundcolor-aqua,.backgroundcolor-hover-aqua:hover{color:#000!important;background-color:#00ffff!important}
  .backgroundcolor-blue,.backgroundcolor-hover-blue:hover{color:#fff!important;background-color:#2196F3!important}

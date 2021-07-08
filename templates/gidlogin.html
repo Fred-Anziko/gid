@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-      <title>gidweb.com</title> <!--for SEO-->
+            <title>gidweb.com</title> <!--for SEO-->
             <meta http-equiv="content-type" content="text/html/> <!--choosing character type-->
             <meta name="keywords" content="login,gid,get it done,gidtasks,gidshop,gidpay,gidstockbroker,gidreservation,gidmessenger" /> <!--for SEO -->
             <meta name="description" content="get it done"/> <!--for SEO-->
@@ -12,8 +12,7 @@
             <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
 			<link rel="icon" type="image/png" href="/static/images/gidicon.png"> <!--attach icon of the platform-->
 			<!--link rel="stylesheet" href="/static/stylesheets/gidstyles.css"-->
-            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
-            <!--<script src='OSC.js'></script> <!--geolocation html5 code starts here -->
+            <script src="/static/javascripts/gidweb.js"></script>
             <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script><!--geolocation-->
 			<meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +23,7 @@ color:gray;}
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
-  width: 100%;
+  width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -42,7 +41,7 @@ button{
   border: 2px solid black;
   border-radius:10px;
   cursor: pointer;
-  width: 50%;
+  width: 25%;
   text-align: center;
 }
 button:hover {
@@ -68,6 +67,8 @@ img.avatar {
   border-radius:50%;
 }
 
+.animate-input{transition:width 0.4s ease-in-out}
+.animate-input:focus{width:100%!important}
 .container {
   padding: 2px;
 }
@@ -98,7 +99,7 @@ span.psw {
   margin: 2% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
   border:2px solid white;
   border-radius:20px;
-  width: 70%; /* Could be more or less, depending on screen size */
+  width: 65%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */
@@ -147,21 +148,20 @@ span.psw {
 </head>
 <body>
 <div class="modal">
-  <h1>Login</h1>
   <form class="modal-content animate" action="/gidlogin" method="post" target="_self">
     <div class="imgcontainer">
-      <h3><strong>gidweb</strong></h3>
+	  <h1>Login</h1>
       <hr>
       <img src="static/images/gidpic1.png" width="100%" height="250px">
     </div>
 
     <div class="container">
       <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Username" name="username" required>
-
+      <input type="text" class="animate-input" placeholder="Username" name="username" required>
+      <br>
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Password" name="password" required>
-        
+      <input type="password" class="animate-input" placeholder="Password" name="password" required>
+      <br>
       <button type="submit">Login</button>
 	<br>
 	<br>

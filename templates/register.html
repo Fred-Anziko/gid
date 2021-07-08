@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>gidweb.com</title> <!--for SEO-->
+            <title>gidweb.com</title> <!--for SEO-->
             <meta http-equiv="content-type" content="text/html/> <!--choosing character type-->
-            <meta name="keywords" content="gid,get it done,register" /> <!--for SEO -->
+            <meta name="keywords" content="gid,get it done,register,gidtasks,gidshop,gidpay,gidstockbroker,gidreservation,gidmessenger"" /> <!--for SEO -->
             <meta name="description" content="get it done"/> <!--for SEO-->
             <meta name="robots" content="all,index" /> <!--allow or block indexing of site content by automated search engines-->
 			<meta name="mobile-web-app-capable" content="yes" /> <!--android chrome web app on home screen-->
@@ -12,8 +12,7 @@
             <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
 			<!--link rel="stylesheet" href="/static/stylesheets/gidstyles.css"-->
 			<link rel="icon" type="image/png" href="/static/images/gidicon.png"> <!--attach icon of the platform-->
-            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
-            <!--<script src='OSC.js'></script> <!--geolocation html5 code starts here -->
+            <script src="/static/javascripts/gidweb.js"></script>
             <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script><!--geolocation-->
 			<meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +24,7 @@ color:gray;}
 
 /* Full-width input fields */
 input[type=text], input[type=password],input[type=date] {
-  width: 100%;
+  width: 50%;
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;
@@ -54,7 +53,7 @@ button {
   border:2px solid white;
   border-radius:10px; 
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   opacity: 0.9;
 }
 
@@ -73,6 +72,9 @@ button:hover {
   float: left;
   width: 50%;
 }
+
+.animate-input{transition:width 0.4s ease-in-out}
+.animate-input:focus{width:100%!important}
 
 /* Add padding to container elements */
 .container {
@@ -100,7 +102,7 @@ button:hover {
   margin: 2% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
   border:2px solid white;
   border-radius:20px;
-  width: 70%; /* Could be more or less, depending on screen size */
+  width: 80%; /* Could be more or less, depending on screen size */
 }
 
 /* Style the horizontal ruler */
@@ -158,83 +160,59 @@ hr {
 <body>
 
 <div  class="modal">
-<h1>Register</h1>
-  <form class="modal-content animate" action="/gidregister" method="post">
+  <form onsubmit="gpsAuto();" class="modal-content animate" action="/gidregister" method="post">
     <div class="imgcontainer">
-      <h3><strong>gidweb</strong></h3>
-	  <hr>
-	  <img src="static/images/gidregisterpic.png" width="100%" height="250px">
-      <hr>
+	  <h1>Register</h1>
+	  <img src="static/images/gidpic1.png" width="100%" height="250px">
+	  </div>
 	  <label for="first_name"><b>First Name</b></label>
-      <input type="text" placeholder="First name" name="first_name" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="first_name" required>
+	  <br>
+	  <label for="middle_name"><b>Middle Name</b></label>
+      <input type="text" class="animate-input" placeholder="optional" name="middle_name">
+	  <br>
 	  <label for="last_name"><b>Last Name</b></label>
-      <input type="text" placeholder="Last name" name="last_name" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="last_name" required>
+	  <br>
 	  <label for="country"><b>Country</b></label>
-      <input type="text" placeholder="Country of residence" name="country" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="country" required>
+	  <br>
 	  <label for="city"><b>City</b></label>
-      <input type="text" placeholder="City of residence" name="city" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="city" required>
+	  <br>
 	  <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Email" name="email" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="email" required>
+	  <br>
 	  <label for="telephone"><b>Tel Number</b></label>
-      <input type="text" placeholder="Mobile Telephone Number" name="telephone" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="telephone" required>
+	  <br>
       <label for="date_of_birth"><b>Date of Birth</b></label>
-      <input type="date" placeholder="dd/mm/year" name="date_of_birth" required>
-      
+      <input type="date" class="animate-input" placeholder="required" name="date_of_birth" required>
+      <br>
       <label for="user_name"><b>User Name</b></label>
-      <input type="text" placeholder="User name" name="user_name" required>
-	  
+      <input type="text" class="animate-input" placeholder="required" name="user_name" required>
+	  <br>
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Password" name="password" required>
-
+      <input type="password" class="animate-input" placeholder="required" name="password" required>
+	  <br>
+	  <input type="hidden" placeholder="optional" name="gpsla" id="gpslat">
+	  <br>
+	  <input type="hidden" placeholder="optional" name="gpslo" id="gpslong">
+      <br>
       <p>By registering an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
       <div class="clearfix">
         <button type="submit" class="signupbtn">Register</button>
       </div>
-    </div>
+    
   </form>
   <h2>©whiterhino inc.</h2>
   <h6> 
  <script>
+ //Datetime auto
  var today=new Date(Date.now());
  document.write(today);
  </script>
  </h6>
-<script>
-</div>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-// position auto input
-var gidgps = document.getElementById("gidpositioning");
-
-window.onload= function getLocation(event) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    gidgps.value = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPositionLat(position) {
-  gidgps.value = position.coords.latitude;
-}
-function showPositionLong(position) {
-  gidgps.value = position.coords.longitude;
-}
-</script>
-
 </body>
 </html>

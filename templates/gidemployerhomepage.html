@@ -12,8 +12,7 @@
             <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
 			<link rel="stylesheet" href="/static/stylesheets/gidstyles.css">
 			<link rel="icon" type="image/png" href="/static/images/gidicon.png"> <!--attach icon of the platform-->
-            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
-            <!--<script src='OSC.js'></script> <!--geolocation html5 code starts here -->
+            <script src="/static/javascripts/gidweb.js"></script>
             <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script><!--geolocation-->
 			<meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -122,7 +121,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <!-- Footer -->
 <div class="w3-round-large footer w3-light-blue">
   <div class="navbar">
-  <a href="mailto:fredanziko@gmail.com">Contact us</a>
+  <a href="mailto:anzikofred@gmail.com">Contact us</a>
   <a href="/gidaboutus">About us</a>
   <a href="/gidhowto">how to</a>
   <a href="/gidtermsandconditions">Terms & Conditions</a> 
@@ -136,32 +135,5 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
  </script>
  </h6>
 </div>
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
- 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-// position auto input
-var gidgps = document.getElementById("gidpositioning");
-
-window.onload= function getLocation(event) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    gidgps.value = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-  gidgps.value = position.coords.latitude + 
-  "," + position.coords.longitude;
-}
-</script>
-
 </body>
-
 </html>

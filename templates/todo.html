@@ -12,8 +12,7 @@
             <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
 			<link rel="stylesheet" href="/static/stylesheets/gidstyles.css">
 			<link rel="icon" type="image/png" href="/static/images/gidicon.png"> <!--attach icon of the platform-->
-            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
-            <!-- <script src='OSC.js'></script> geolocation html5 code starts here -->
+            <script src="/static/javascripts/gidweb.js"></script>
             <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>geolocation-->
 			<meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +21,7 @@
 
 <div class="text-center padding-16 animate-fading backgroundcolor-white text-color-black font-size-xlarge border-radius-round-large">
   <p><strong>"Welcome to home of the bold, optimistic, enthusiastic and the confident"</strong></p>
+  <a href="/"class="col.s1 col.m1 btn btn:hover text-color-blue font-size-xxxlarge backgroundcolor-gray">Home</a>
 </div>
 <h2>©whiterhino inc.</h2>
  <h6> 
@@ -32,28 +32,6 @@
  </h6>
 </div>
 </div>
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
- 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-// continues position update to determine location of users for accurate service provision
-if (navigator.geolocation) {
- //after the user indicates that they want to turn on continuous location-tracking
- var watchId = navigator.geolocation.watchPosition(updateLocation, geolocationFailure);
-} else {
- console.log("Geolocation is not supported by this browser.");
-}
-var updateLocation = function(position) {
- console.log("New position at: " + position.coords.latitude + ", " + position.coords.longitude);
-};
- 
-</script>
-
 </body>
 
 </html>

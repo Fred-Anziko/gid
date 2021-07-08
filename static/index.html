@@ -12,8 +12,7 @@
             <meta name="author" content="whiterhino inc" /> <!--identify the author or company providing the site-->
 			<link rel="stylesheet" href="/static/stylesheets/gidstyles.css">
 			<link rel="icon" type="image/png" href="/static/images/gidicon.png"> <!--attach icon of the platform-->
-            <!--<script src="gid-javascriptfile.js"></script>attach external javascript file-->
-            <!-- <script src='OSC.js'></script> geolocation html5 code starts here -->
+            <script src="/static/javascripts/gidweb.js"></script>
             <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>geolocation-->
 			<meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,29 +21,33 @@
 <!-- Top menu -->
 <div class="top">
      <div class="animate-top backgroundcolor-light-blue border-radius-round-large font-size-xlarge" style="max-width:1200px;margin:auto">
-     <div class="btn btn:hover left border-radius-round-xlarge"<strong><a href="/gidregister">Register</a></strong></div>
-	 <div class="btn btn:hover right padding-small border-radius-round-xlarge"<strong><a href="/gidlogin">Login</a></strong></div>
+	 <a href="/gidregister"class="btn btn:hover left border-radius-round-xlarge text-color-black backgroundcolor-silver margin-left"><strong>Register</strong></a>
+	 <a href="/gidlogin"class="btn btn:hover right border-radius-round-xlarge text-color-black backgroundcolor-silver margin-right"><strong>Login</strong></a>
      <div class="text-center padding-16">
 	 <h3><strong>gidweb</strong></h3>
+	 </div>
+	 <br>
+	 <div class="padding-small">
 	 <form action="/gidsearchengine" method="post">
-	 <input type="search" name="searchengine" placeholder="Search" class="search" required>
-	 <input type="submit" value="☆" class="animate-left searchsubmit">
+	 <input type="search" name="searchengine" placeholder="search" class="search animate-input" required>
      </form>
-     </div>
+	 </div>
 	 </div>
 </div>	 
 <br>
 <!--header begins here-->
 <div>
-  <h1><div class="center border-radius-round-large padding-16">get it done-gid-gidweb</div></h1>	
+  <h1><div class="center border-radius-round-large padding-16">get it done-gidweb</div></h1>	
 </div>
 <!--header ends here-->
 <!--navigation begins here-->
 <br>
+<br>
+<br>
 <div class="navbar">
   <a href="/gidregister"class="col.s1 col.m1 btn btn:hover">Register</a>
   <a href="/gidlogin"class="col.s1 col.m1 btn btn:hover">Login</a>
-  <a href="mailto:anzikofred@outlook.com"class="col.s1 col.m1 btn btn:hover">Contact us</a>
+  <a href="mailto:anzikofred@outlook.com"class="col.s1 col.m1 btn btn:hover">Contact us 📧</a>
 </div>
 <!-- !PAGE CONTENT! -->
 <div class="text-center padding-16 animate-fading backgroundcolor-white text-color-black font-size-xlarge border-radius-round-large">
@@ -58,42 +61,19 @@
   <!-- Footer -->
 <div class="footer border-radius-round-large backgroundcolor-light-blue">
 <div class="navbar">
-  <a href="mailto:anzikofred@outlook.com">Contact us</a>
+  <a href="mailto:vascoedema@gmail.com">Contact us 📧</a>
   <a href="/gidaboutus">About us</a>
   <a href="/gidhowto">how to</a>
   <a href="/gidtermsandconditions">Terms & Conditions</a> 
 </div>
  <h2>©whiterhino inc.</h2>
- <h6> 
- <script>
+ <h6>
+<script>
  var today=new Date(Date.now());
  document.write(today);
- </script>
+</script>
  </h6>
 </div>
 </div>
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
- 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-// continues position update to determine location of users for accurate service provision
-if (navigator.geolocation) {
- //after the user indicates that they want to turn on continuous location-tracking
- var watchId = navigator.geolocation.watchPosition(updateLocation, geolocationFailure);
-} else {
- console.log("Geolocation is not supported by this browser.");
-}
-var updateLocation = function(position) {
- console.log("New position at: " + position.coords.latitude + ", " + position.coords.longitude);
-};
- 
-</script>
-
 </body>
-
 </html>

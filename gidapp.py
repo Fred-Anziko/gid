@@ -6,11 +6,12 @@ Created on Fri Jun 11 13:31:34 2021
 """
 import os
 import datetime
+#import re
 from flask import Flask, redirect, render_template, request, session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from gidhelpers import login_required
-from gidmodal import gidconnection
+from gidmodal import giddb2connection
 import waitress
 import ibm_db
 
@@ -30,6 +31,11 @@ gidapp.config["TEMPLATES_AUTO_RELOAD"] = True
 gidapp.config["SESSION_FILE_DIR"] = mkdtemp()
 gidapp.config["SESSION_PERMANENT"] = False
 gidapp.config["SESSION_TYPE"] = "filesystem"
+
+#Database connection
+print("connecting DB2 database")
+gidconnection=giddb2connection()
+print("Database connection is",gidconnection)
 
 #index route
 @gidapp.route("/")
@@ -57,7 +63,8 @@ def gid_search_engine():
     """function to manage search and filter of content"""
     if request.method=="POST":
         search=request.form["searchengine"]
-        return f"<p>Your search item <em>{search}</em> is quite unique to the system</p>"
+        print(search)
+        return render_template("todo.html")
     else:
         pass
 
@@ -79,32 +86,19 @@ def register():
         email = request.form["email"]
         telephone = request.form["telephone"]
         dob=request.form["date_of_birth"]
-        #qualification = request.form["qualification"]
-        #experiences = request.form["experiences"]
-        #skills = request.form["skills"]
         user_name = request.form["user_name"]
         password = request.form["password"]
-        gpslong=0.5000
-        gpslat=0.5000
+        gpslat=request.form["gpsla"]
+        gpslong=request.form["gpslo"]
         photo=None
         date_of_reg=datetime.datetime.now()
-        """acessing DB2 database to check if the username exists"""
-        check_userame_sql="SELECT Personnel_Id_No FROM personnel WHERE Personnel_User_Name =?"
-        check_userame_sql_prepared=ibm_db.prepare(gidconnection,check_userame_sql)
-        check_userame_sql_parameters=user_name
-        personnel_username_checked=ibm_db.execute(check_userame_sql_prepared,check_userame_sql_parameters).ibm_db.fetch_assoc()
-        if personnel_username_checked is not None:
-
-            return f"<h2>Sorry! Username <em>{user_name}</em> is already taken,select another username and</h2><a href = '/gidregister'>" + "<strong>Register again</strong></a>"
-
-        else:
-            """ the name is not in system, store it in the database and go to
-            the login page"""
-            personnel_register_sql="INSERT INTO personnel (Personnel_First_Name,Personnel_Middle_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_Address,Personnel_Country,Personnel_City_Of_Residence,Personnel_DOB,Personnel_Gps_Location_Long,Personnel_Gps_Location_Lat,Personnel_Date_Of_Registration,Personnel_Facial_Reco) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
-            personnel_register_sql_prepared=ibm_db.prepare(gidconnection,personnel_register_sql)
-            personnel_sql_parameters=firstname,middlename,lastname,user_name,generate_password_hash(password),telephone,email,country,city,dob,gpslong,gpslat,date_of_reg,photo
-            ibm_db.execute(personnel_register_sql_prepared,personnel_sql_parameters)
-            return redirect("/gidlogin")
+        #print(firstname,middlename,lastname,user_name,generate_password_hash(password),telephone,email,country,city,dob,gpslong,gpslat,date_of_reg,photo)
+        """acessing DB2 database"""
+        personnel_register_sql="INSERT INTO personnel (Personnel_First_Name,Personnel_Middle_Name,Personnel_Last_Name,Personnel_User_Name,Personnel_Password,Personnel_Tel_No,Personnel_Email_Address,Personnel_Country,Personnel_City_Of_Residence,Personnel_DOB,Personnel_Gps_Location_Long,Personnel_Gps_Location_Lat,Personnel_Date_Of_Registration,Personnel_Facial_Reco) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        personnel_register_sql_prepared=ibm_db.prepare(gidconnection,personnel_register_sql)
+        personnel_sql_parameters=firstname,middlename,lastname,user_name,generate_password_hash(password),telephone,email,country,city,dob,gpslong,gpslat,date_of_reg,photo
+        ibm_db.execute(personnel_register_sql_prepared,personnel_sql_parameters)
+        return redirect("/gidlogin")
     else:
         return render_template("register.html")
 
@@ -228,6 +222,6 @@ def logout():
     return redirect("/")
 """gidweb WSGI server"""
 if __name__ == "__main__":
-    gidapp.debug=False
+    gidapp.debug=True
     waitress.serve(gidapp,port=PORT)
 """©whiterhino inc."""

@@ -5,20 +5,20 @@ Created on Fri Jun 11 13:31:34 2021
 @author: Anziko Fred
 """
 import ibm_db
-########MODAL/DATABASE########BEGINS
-gidconnection=False
-#connection to the DB2 database for gidweb on IBM cloud
+def giddb2connection():
+    """connection to the DB2 database for gidweb on IBM cloud foundry"""
+    try:
+        gidconnection= ibm_db.pconnect("DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-04.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bds31662;PWD=0hdl2dpsqpmt@mpl;","","")
+    except:
+        print( "No connection:" , ibm_db.conn_errormsg())
+        print("Database connection denied")
+    else:
+        print ("Database connection established.")
+        return gidconnection
 
-try:
-    gidconnection= ibm_db.pconnect("DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-04.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=bds31662;PWD=0hdl2dpsqpmt@mpl;","","")
-except:
-    print( "No connection:" , ibm_db.conn_errormsg())
-    print("Connection Denied")
-else:
-    print ("Connection established.")
-
-
-"""Create personnel table
+"""
+gidconnection=giddb2connection()
+Create personnel table
 try:
     gid_personnel_sql="CREATE TABLE personnel(Personnel_Id_No INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), Personnel_First_Name VARCHAR(25),Personnel_Middle_Name VARCHAR(25),Personnel_Last_Name VARCHAR(25),Personnel_User_Name VARCHAR(25) NOT NULL,Personnel_Password VARCHAR(25) NOT NULL,Personnel_Tel_No VARCHAR(25),Personnel_Email_Address VARCHAR(25),Personnel_Country VARCHAR(25),Personnel_City_Of_Residence VARCHAR(25),Personnel_DOB DATE,Personnel_Gps_Location_Long DECIMAL(10,2),Personnel_Gps_Location_Lat DECIMAL(10,2),Personnel_Date_Of_Registration TIMESTAMP NOT NULL,Personnel_Facial_Reco BLOB)"
     ibm_db.exec_immediate(gidconnection,gid_personnel_sql)
