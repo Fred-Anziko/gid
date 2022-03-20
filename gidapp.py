@@ -17,7 +17,7 @@ import ibm_db
 
 """Read port selected by the cloud for our application"""
 
-PORT = int(os.getenv('PORT', 8000))
+PORT = int(os.getenv('PORT', 8080))
 
 """gidweb controller in current file gidapp.py"""
 """gidweb modal imported from gidmodal.py"""
