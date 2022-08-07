@@ -1,1 +1,1 @@
-web: python gidapp.py
+gunicorn --worker-tmp-dir /dev/shm app:gidapp
