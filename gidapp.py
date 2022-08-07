@@ -11,9 +11,9 @@ from flask import Flask, redirect, render_template, request, session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from gidhelpers import login_required
-from gidmodal import giddb2connection
+#from gidmodal import giddb2connection
 import waitress
-import ibm_db
+#import ibm_db
 
 """Read port selected by the cloud for our application"""
 
@@ -33,9 +33,9 @@ gidapp.config["SESSION_PERMANENT"] = False
 gidapp.config["SESSION_TYPE"] = "filesystem"
 
 #Database connection
-print("connecting DB2 database")
-gidconnection=giddb2connection()
-print("Database connection is",gidconnection)
+#print("connecting DB2 database")
+#gidconnection=giddb2connection()
+#print("Database connection is",gidconnection)
 
 #index route
 @gidapp.route("/")
