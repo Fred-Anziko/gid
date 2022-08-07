@@ -1,1 +1,1 @@
-gunicorn --worker-tmp-dir /dev/shm app:gidapp
+python 3.9.5
