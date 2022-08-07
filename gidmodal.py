@@ -4,7 +4,6 @@ Created on Fri Jun 11 13:31:34 2021
 
 @author: Anziko Fred
 """
-import ibm_db
 def giddb2connection():
     """connection to the DB2 database for gidweb on IBM cloud foundry"""
     try:
