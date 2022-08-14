@@ -3,3 +3,4 @@ Jinja2>=2.6
 Werkzeug>=0.8.3
 waitress>=1.4.4
 gunicorn>=20.0.0
+psycopg2>=2.8.6
